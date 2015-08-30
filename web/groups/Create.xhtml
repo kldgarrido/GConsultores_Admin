@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GroupsCreateDlg" widgetVar="GroupsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateGroupsTitle}" closeOnEscape="true">
+
+            <h:form id="GroupsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{groupsController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateGroupsLabel_groupname}" for="groupname" />
+                        <p:inputText id="groupname" value="#{groupsController.selected.groupname}" title="#{myBundle.CreateGroupsTitle_groupname}" size="20" maxlength="20"/>
+
+                        <p:outputLabel value="#{myBundle.CreateGroupsLabel_username}" for="username" />
+                        <p:selectOneMenu id="username" value="#{groupsController.selected.username}"  converter="credentialsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{credentialsController.items}"
+                                           var="usernameItem"
+                                           itemValue="#{usernameItem}"
+                                           itemLabel="#{usernameItem.username.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{groupsController.saveNew}" value="#{myBundle.Save}" update="display,:GroupsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('GroupsCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('GroupsCreateDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>
