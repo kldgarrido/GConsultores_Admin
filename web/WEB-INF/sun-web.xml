@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sun-web-app error-url="">
+    <security-role-mapping><!--Mapeo de roles y grupos-->
+        <role-name>invitedguest</role-name>
+        <group-name>invitedguest</group-name>
+    </security-role-mapping>
+    <security-role-mapping>
+        <role-name>registereduser</role-name>
+        <group-name>registereduser</group-name>
+    </security-role-mapping>
+    <class-loader delegate="true"/>
+    <jsp-config>
+        <property name="keepgenerated" value="true">
+            <description>Keep a copy of the generated servlet class' java code.</description>
+        </property>
+    </jsp-config>
+</sun-web-app>

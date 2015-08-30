@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+        <h:form id="PerfilClienteListForm">
+
+            <p:panel header="#{myBundle.ListPerfilClienteTitle}">
+                <p:contextMenu id="PerfilClienteDataTableContextMenu" for="datalist">  
+                    <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('PerfilClienteListForm:createButton').click();" icon="ui-icon-plus"/>
+                    <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('PerfilClienteListForm:viewButton').click();" icon="ui-icon-search"/>
+                    <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('PerfilClienteListForm:editButton').click();" icon="ui-icon-pencil"/>
+                    <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('PerfilClienteListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                </p:contextMenu>
+                <p:dataTable id="datalist"
+                             value="#{perfilClienteController.perfilClientes}"
+                             var="item"
+                             rowKey="#{item.id}"
+                             paginator="true"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             selectionMode="single"
+                             selection="#{perfilClienteController.selected}">
+
+                    <p:ajax event="rowSelect"   update=":PerfilClienteListForm:createButton :PerfilClienteListForm:viewButton :PerfilClienteListForm:editButton :PerfilClienteListForm:deleteButton :PerfilClienteListForm:PerfilClienteDataTableContextMenu"/>
+                    <p:ajax event="rowUnselect" update=":PerfilClienteListForm:createButton :PerfilClienteListForm:viewButton :PerfilClienteListForm:editButton :PerfilClienteListForm:deleteButton :PerfilClienteListForm:PerfilClienteDataTableContextMenu"/>
+                    <p:ajax event="contextMenu" update=" :PerfilClienteListForm:createButton :PerfilClienteListForm:viewButton :PerfilClienteListForm:editButton :PerfilClienteListForm:deleteButton"/>
+                    <p:ajax event="rowDblselect" onsuccess="document.getElementById('PerfilClienteListForm:viewButton').click();"/>
+
+                    <p:column sortBy="#{item.apellidos}" filterBy="#{item.apellidos}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListPerfilClienteTitle_apellidos}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.apellidos}"/>
+                    </p:column>
+
+
+                    <p:column sortBy="#{item.cargoActual}" filterBy="#{item.cargoActual}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListPerfilClienteTitle_cargoActual}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.cargoActual}"/>
+                    </p:column>
+
+
+                    <p:column sortBy="#{item.ciudadNacimiento}" filterBy="#{item.ciudadNacimiento}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListPerfilClienteTitle_ciudadNacimiento}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.ciudadNacimiento}"/>
+                    </p:column>
+
+
+                    <p:column sortBy="#{item.codigo}" filterBy="#{item.codigo}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListPerfilClienteTitle_codigo}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.codigo}"/>
+                    </p:column>
+
+
+                    <p:column sortBy="#{item.correo}" filterBy="#{item.correo}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListPerfilClienteTitle_correo}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.correo}"/>
+                    </p:column>
+
+
+                    <p:column sortBy="#{item.edad}" filterBy="#{item.edad}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListPerfilClienteTitle_edad}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.edad}"/>
+                    </p:column>
+
+<!--
+                    <p:column sortBy="#{item.empresa}" filterBy="#{item.empresa}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListPerfilClienteTitle_empresa}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.empresa}"/>
+                    </p:column>
+-->
+<!--
+                    <p:column sortBy="#{item.estadoCivil}" filterBy="#{item.estadoCivil}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListPerfilClienteTitle_estadoCivil}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.estadoCivil}"/>
+                    </p:column>
+-->
+                    <p:column sortBy="#{item.fechaInscripcion}" filterBy="#{item.fechaInscripcion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListPerfilClienteTitle_fechaInscripcion}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.fechaInscripcion}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </p:column>
+<!--
+                    <p:column sortBy="#{item.fechaNacimiento}" filterBy="#{item.fechaNacimiento}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListPerfilClienteTitle_fechaNacimiento}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.fechaNacimiento}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                    </p:column>
+-->
+<!--
+                    <p:column sortBy="#{item.genero}" filterBy="#{item.genero}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListPerfilClienteTitle_genero}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.genero}"/>
+                    </p:column>
+-->
+<!--
+                    <p:column sortBy="#{item.identificacion}" filterBy="#{item.identificacion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListPerfilClienteTitle_identificacion}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.identificacion}"/>
+                    </p:column>
+-->
+<!--
+                    <p:column sortBy="#{item.nombres}" filterBy="#{item.nombres}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListPerfilClienteTitle_nombres}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nombres}"/>
+                    </p:column>
+-->
+<!--
+                    <p:column sortBy="#{item.ocupacion}" filterBy="#{item.ocupacion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListPerfilClienteTitle_ocupacion}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.ocupacion}"/>
+                    </p:column>
+-->
+<!--
+                    <p:column sortBy="#{item.paisNacimiento}" filterBy="#{item.paisNacimiento}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListPerfilClienteTitle_paisNacimiento}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.paisNacimiento}"/>
+                    </p:column>
+-->
+<!--
+                    <p:column sortBy="#{item.profesion}" filterBy="#{item.profesion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListPerfilClienteTitle_profesion}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.profesion}"/>
+                    </p:column>
+-->
+<!--
+                    <p:column sortBy="#{item.telefonoCelular}" filterBy="#{item.telefonoCelular}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListPerfilClienteTitle_telefonoCelular}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.telefonoCelular}"/>
+                    </p:column>
+-->
+<!--
+                    <p:column sortBy="#{item.telefonoFijo}" filterBy="#{item.telefonoFijo}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListPerfilClienteTitle_telefonoFijo}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.telefonoFijo}"/>
+                    </p:column>
+-->
+<!--
+                    <p:column sortBy="#{item.tipoIdentificacion}" filterBy="#{item.tipoIdentificacion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListPerfilClienteTitle_tipoIdentificacion}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.tipoIdentificacion}"/>
+                    </p:column>
+-->
+<!--
+                    <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListPerfilClienteTitle_id}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.id}"/>
+                    </p:column>
+-->
+
+                </p:dataTable>
+
+                        <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{perfilClienteController.prepareCreate}" update=":PerfilClienteCreateForm" oncomplete="PF('PerfilClienteCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":PerfilClienteViewForm" oncomplete="PF('PerfilClienteViewDialog').show()" disabled="#{empty perfilClienteController.selected}"/>
+                        <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":PerfilClienteEditForm" oncomplete="PF('PerfilClienteEditDialog').show()" disabled="#{empty perfilClienteController.selected}"/>
+                        <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{perfilClienteController.delete}" update=":growl,datalist" disabled="#{empty perfilClienteController.selected}">
+                            <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+                        </p:commandButton>
+
+            </p:panel>
+            <ui:include src="/confirmation.xhtml"/>
+        </h:form>
+
+</ui:composition>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>start</param-value>
+    </context-param>
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>/faces/*</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>faces/index.xhtml</welcome-file>
+    </welcome-file-list>
+    <security-constraint>
+        <!--Configuración de seguridad-->
+        <web-resource-collection>
+            <web-resource-name>Paginas protegidas</web-resource-name>
+            <description/>
+            <url-pattern>/faces/protected/*</url-pattern>
+            <!--Directorio restringido-->
+            <url-pattern>/protected/*</url-pattern>
+            <!--Patron de páginas-->
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>PerfilCliente</web-resource-name>
+            <description/>
+            <url-pattern>/faces/perfilCliente/*</url-pattern>
+            <url-pattern>/perfilCliente/*</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>Index</web-resource-name>
+            <description/>
+            <url-pattern>/</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <!--Grupos permitidos -->
+            <role-name>registereduser</role-name>
+            <role-name>invitedguest</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Paginas protegidas</web-resource-name>
+            <url-pattern>/faces/registered/*</url-pattern>
+            <url-pattern>/registered/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>registereduser</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <!--Método de autenticación-->
+        <realm-name>jdbcRealm</realm-name>
+        <!--Nombre de dominio-->
+        <form-login-config>
+            <form-login-page>/login.html</form-login-page>
+            <!--Página de login-->
+            <form-error-page>/noautorizado.html</form-error-page>
+            <!--Página de error de aut-->
+        </form-login-config>
+    </login-config>
+    <security-role>
+        <!--Roles de autenticación-->
+        <role-name>registereduser</role-name>
+    </security-role>
+    <security-role>
+        <role-name>invitedguest</role-name>
+    </security-role>
+</web-app>

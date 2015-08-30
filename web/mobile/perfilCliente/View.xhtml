@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+    <pm:page id="PerfilClienteViewPage">
+        <pm:header title="#{myBundle.ViewPerfilClienteTitle}">
+            <p:button styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" outcome="pm:PerfilClienteListPage"/>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="PerfilClienteViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{perfilClienteController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPerfilClienteLabel_apellidos}"/>
+                            <h:outputText value="#{perfilClienteController.selected.apellidos}" title="#{myBundle.ViewPerfilClienteTitle_apellidos}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPerfilClienteLabel_cargoActual}"/>
+                            <h:outputText value="#{perfilClienteController.selected.cargoActual}" title="#{myBundle.ViewPerfilClienteTitle_cargoActual}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPerfilClienteLabel_ciudadNacimiento}"/>
+                            <h:outputText value="#{perfilClienteController.selected.ciudadNacimiento}" title="#{myBundle.ViewPerfilClienteTitle_ciudadNacimiento}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPerfilClienteLabel_codigo}"/>
+                            <h:outputText value="#{perfilClienteController.selected.codigo}" title="#{myBundle.ViewPerfilClienteTitle_codigo}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPerfilClienteLabel_correo}"/>
+                            <h:outputText value="#{perfilClienteController.selected.correo}" title="#{myBundle.ViewPerfilClienteTitle_correo}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPerfilClienteLabel_edad}"/>
+                            <h:outputText value="#{perfilClienteController.selected.edad}" title="#{myBundle.ViewPerfilClienteTitle_edad}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPerfilClienteLabel_empresa}"/>
+                            <h:outputText value="#{perfilClienteController.selected.empresa}" title="#{myBundle.ViewPerfilClienteTitle_empresa}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPerfilClienteLabel_estadoCivil}"/>
+                            <h:outputText value="#{perfilClienteController.selected.estadoCivil}" title="#{myBundle.ViewPerfilClienteTitle_estadoCivil}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPerfilClienteLabel_fechaInscripcion}"/>
+                            <h:outputText value="#{perfilClienteController.selected.fechaInscripcion}" title="#{myBundle.ViewPerfilClienteTitle_fechaInscripcion}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPerfilClienteLabel_fechaNacimiento}"/>
+                            <h:outputText value="#{perfilClienteController.selected.fechaNacimiento}" title="#{myBundle.ViewPerfilClienteTitle_fechaNacimiento}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPerfilClienteLabel_genero}"/>
+                            <h:outputText value="#{perfilClienteController.selected.genero}" title="#{myBundle.ViewPerfilClienteTitle_genero}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPerfilClienteLabel_identificacion}"/>
+                            <h:outputText value="#{perfilClienteController.selected.identificacion}" title="#{myBundle.ViewPerfilClienteTitle_identificacion}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPerfilClienteLabel_nombres}"/>
+                            <h:outputText value="#{perfilClienteController.selected.nombres}" title="#{myBundle.ViewPerfilClienteTitle_nombres}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPerfilClienteLabel_ocupacion}"/>
+                            <h:outputText value="#{perfilClienteController.selected.ocupacion}" title="#{myBundle.ViewPerfilClienteTitle_ocupacion}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPerfilClienteLabel_paisNacimiento}"/>
+                            <h:outputText value="#{perfilClienteController.selected.paisNacimiento}" title="#{myBundle.ViewPerfilClienteTitle_paisNacimiento}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPerfilClienteLabel_profesion}"/>
+                            <h:outputText value="#{perfilClienteController.selected.profesion}" title="#{myBundle.ViewPerfilClienteTitle_profesion}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPerfilClienteLabel_telefonoCelular}"/>
+                            <h:outputText value="#{perfilClienteController.selected.telefonoCelular}" title="#{myBundle.ViewPerfilClienteTitle_telefonoCelular}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPerfilClienteLabel_telefonoFijo}"/>
+                            <h:outputText value="#{perfilClienteController.selected.telefonoFijo}" title="#{myBundle.ViewPerfilClienteTitle_telefonoFijo}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPerfilClienteLabel_tipoIdentificacion}"/>
+                            <h:outputText value="#{perfilClienteController.selected.tipoIdentificacion}" title="#{myBundle.ViewPerfilClienteTitle_tipoIdentificacion}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPerfilClienteLabel_id}"/>
+                            <h:outputText value="#{perfilClienteController.selected.id}" title="#{myBundle.ViewPerfilClienteTitle_id}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

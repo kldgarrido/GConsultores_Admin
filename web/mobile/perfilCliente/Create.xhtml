@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+    <pm:page id="PerfilClienteCreatePage">
+        <pm:header title="#{myBundle.CreatePerfilClienteTitle}">
+            <p:button styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" outcome="pm:PerfilClienteListPage"/>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="PerfilClienteCreateForm">
+
+                <h:panelGroup id="display" rendered="#{perfilClienteController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreatePerfilClienteLabel_apellidos}" for="apellidos" />
+                            <p:inputText id="apellidos" value="#{perfilClienteController.selected.apellidos}" title="#{myBundle.CreatePerfilClienteTitle_apellidos}" size="255" maxlength="255"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreatePerfilClienteLabel_cargoActual}" for="cargoActual" />
+                            <p:inputText id="cargoActual" value="#{perfilClienteController.selected.cargoActual}" title="#{myBundle.CreatePerfilClienteTitle_cargoActual}" size="255" maxlength="255"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreatePerfilClienteLabel_ciudadNacimiento}" for="ciudadNacimiento" />
+                            <p:inputText id="ciudadNacimiento" value="#{perfilClienteController.selected.ciudadNacimiento}" title="#{myBundle.CreatePerfilClienteTitle_ciudadNacimiento}" size="255" maxlength="255"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreatePerfilClienteLabel_codigo}" for="codigo" />
+                            <p:inputText id="codigo" value="#{perfilClienteController.selected.codigo}" title="#{myBundle.CreatePerfilClienteTitle_codigo}" size="255" maxlength="255"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreatePerfilClienteLabel_correo}" for="correo" />
+                            <p:inputText id="correo" value="#{perfilClienteController.selected.correo}" title="#{myBundle.CreatePerfilClienteTitle_correo}" size="255" maxlength="255"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreatePerfilClienteLabel_edad}" for="edad" />
+                            <p:inputText id="edad" value="#{perfilClienteController.selected.edad}" title="#{myBundle.CreatePerfilClienteTitle_edad}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreatePerfilClienteLabel_empresa}" for="empresa" />
+                            <p:inputText id="empresa" value="#{perfilClienteController.selected.empresa}" title="#{myBundle.CreatePerfilClienteTitle_empresa}" size="255" maxlength="255"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreatePerfilClienteLabel_estadoCivil}" for="estadoCivil" />
+                            <p:inputText id="estadoCivil" value="#{perfilClienteController.selected.estadoCivil}" title="#{myBundle.CreatePerfilClienteTitle_estadoCivil}" size="255" maxlength="255"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreatePerfilClienteLabel_fechaInscripcion}" for="fechaInscripcion" />
+                            <p:calendar id="fechaInscripcion" pattern="MM/dd/yyyy" value="#{perfilClienteController.selected.fechaInscripcion}" title="#{myBundle.CreatePerfilClienteTitle_fechaInscripcion}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreatePerfilClienteLabel_fechaNacimiento}" for="fechaNacimiento" />
+                            <p:calendar id="fechaNacimiento" pattern="MM/dd/yyyy" value="#{perfilClienteController.selected.fechaNacimiento}" title="#{myBundle.CreatePerfilClienteTitle_fechaNacimiento}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreatePerfilClienteLabel_genero}" for="genero" />
+                            <p:inputText id="genero" value="#{perfilClienteController.selected.genero}" title="#{myBundle.CreatePerfilClienteTitle_genero}" size="255" maxlength="255"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreatePerfilClienteLabel_identificacion}" for="identificacion" />
+                            <p:inputText id="identificacion" value="#{perfilClienteController.selected.identificacion}" title="#{myBundle.CreatePerfilClienteTitle_identificacion}" size="255" maxlength="255"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreatePerfilClienteLabel_nombres}" for="nombres" />
+                            <p:inputText id="nombres" value="#{perfilClienteController.selected.nombres}" title="#{myBundle.CreatePerfilClienteTitle_nombres}" size="255" maxlength="255"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreatePerfilClienteLabel_ocupacion}" for="ocupacion" />
+                            <p:inputText id="ocupacion" value="#{perfilClienteController.selected.ocupacion}" title="#{myBundle.CreatePerfilClienteTitle_ocupacion}" size="255" maxlength="255"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreatePerfilClienteLabel_paisNacimiento}" for="paisNacimiento" />
+                            <p:inputText id="paisNacimiento" value="#{perfilClienteController.selected.paisNacimiento}" title="#{myBundle.CreatePerfilClienteTitle_paisNacimiento}" size="255" maxlength="255"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreatePerfilClienteLabel_profesion}" for="profesion" />
+                            <p:inputText id="profesion" value="#{perfilClienteController.selected.profesion}" title="#{myBundle.CreatePerfilClienteTitle_profesion}" size="255" maxlength="255"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreatePerfilClienteLabel_telefonoCelular}" for="telefonoCelular" />
+                            <p:inputText id="telefonoCelular" value="#{perfilClienteController.selected.telefonoCelular}" title="#{myBundle.CreatePerfilClienteTitle_telefonoCelular}" size="255" maxlength="255"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreatePerfilClienteLabel_telefonoFijo}" for="telefonoFijo" />
+                            <p:inputText id="telefonoFijo" value="#{perfilClienteController.selected.telefonoFijo}" title="#{myBundle.CreatePerfilClienteTitle_telefonoFijo}" size="255" maxlength="255"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreatePerfilClienteLabel_tipoIdentificacion}" for="tipoIdentificacion" />
+                            <p:inputText id="tipoIdentificacion" value="#{perfilClienteController.selected.tipoIdentificacion}" title="#{myBundle.CreatePerfilClienteTitle_tipoIdentificacion}" size="255" maxlength="255"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreatePerfilClienteLabel_id}" for="id" />
+                            <p:inputText id="id" value="#{perfilClienteController.selected.id}" title="#{myBundle.CreatePerfilClienteTitle_id}" required="true" requiredMessage="#{myBundle.CreatePerfilClienteRequiredMessage_id}" size="40" maxlength="40"/>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{perfilClienteController.saveNew}" value="#{myBundle.Save}" update="display,:PerfilClienteListPage:PerfilClienteListForm:datalist,:growl" action="pm:PerfilClienteListPage"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>
