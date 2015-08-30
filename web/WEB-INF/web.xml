@@ -55,8 +55,13 @@
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Paginas protegidas</web-resource-name>
+            <description/>
             <url-pattern>/faces/registered/*</url-pattern>
             <url-pattern>/registered/*</url-pattern>
+            <url-pattern>/faces/groups/*</url-pattern>
+            <url-pattern>/groups/*</url-pattern>
+            <url-pattern>/faces/credentials/*</url-pattern>
+            <url-pattern>/credentials/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>registereduser</role-name>
