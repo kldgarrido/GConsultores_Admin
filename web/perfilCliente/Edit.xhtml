@@ -12,31 +12,31 @@
             <h:form id="PerfilClienteEditForm">
 
                 <h:panelGroup id="display">
-                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{perfilClienteController.selected != null}">
+                    <p:panelGrid  columns="4" columnClasses="column" rendered="#{perfilClienteController.selected != null}">
 
                         <p:outputLabel value="#{myBundle.EditPerfilClienteLabel_apellidos}" for="apellidos" />
-                        <p:inputText id="apellidos" value="#{perfilClienteController.selected.apellidos}" title="#{myBundle.EditPerfilClienteTitle_apellidos}" size="255" maxlength="255"/>
+                        <p:inputText id="apellidos" value="#{perfilClienteController.selected.apellidos}" title="#{myBundle.EditPerfilClienteTitle_apellidos}" size="50" maxlength="50"/>
 
                         <p:outputLabel value="#{myBundle.EditPerfilClienteLabel_cargoActual}" for="cargoActual" />
-                        <p:inputText id="cargoActual" value="#{perfilClienteController.selected.cargoActual}" title="#{myBundle.EditPerfilClienteTitle_cargoActual}" size="255" maxlength="255"/>
+                        <p:inputText id="cargoActual" value="#{perfilClienteController.selected.cargoActual}" title="#{myBundle.EditPerfilClienteTitle_cargoActual}" size="50" maxlength="50"/>
 
                         <p:outputLabel value="#{myBundle.EditPerfilClienteLabel_ciudadNacimiento}" for="ciudadNacimiento" />
-                        <p:inputText id="ciudadNacimiento" value="#{perfilClienteController.selected.ciudadNacimiento}" title="#{myBundle.EditPerfilClienteTitle_ciudadNacimiento}" size="255" maxlength="255"/>
+                        <p:inputText id="ciudadNacimiento" value="#{perfilClienteController.selected.ciudadNacimiento}" title="#{myBundle.EditPerfilClienteTitle_ciudadNacimiento}" size="50" maxlength="50"/>
 
                         <p:outputLabel value="#{myBundle.EditPerfilClienteLabel_codigo}" for="codigo" />
-                        <p:inputText id="codigo" value="#{perfilClienteController.selected.codigo}" title="#{myBundle.EditPerfilClienteTitle_codigo}" size="255" maxlength="255"/>
+                        <p:inputText id="codigo" value="#{perfilClienteController.selected.codigo}" title="#{myBundle.EditPerfilClienteTitle_codigo}" size="50" maxlength="50"/>
 
                         <p:outputLabel value="#{myBundle.EditPerfilClienteLabel_correo}" for="correo" />
-                        <p:inputText id="correo" value="#{perfilClienteController.selected.correo}" title="#{myBundle.EditPerfilClienteTitle_correo}" size="255" maxlength="255"/>
+                        <p:inputText id="correo" value="#{perfilClienteController.selected.correo}" title="#{myBundle.EditPerfilClienteTitle_correo}" size="50" maxlength="50"/>
 
                         <p:outputLabel value="#{myBundle.EditPerfilClienteLabel_edad}" for="edad" />
                         <p:inputText id="edad" value="#{perfilClienteController.selected.edad}" title="#{myBundle.EditPerfilClienteTitle_edad}"/>
 
                         <p:outputLabel value="#{myBundle.EditPerfilClienteLabel_empresa}" for="empresa" />
-                        <p:inputText id="empresa" value="#{perfilClienteController.selected.empresa}" title="#{myBundle.EditPerfilClienteTitle_empresa}" size="255" maxlength="255"/>
+                        <p:inputText id="empresa" value="#{perfilClienteController.selected.empresa}" title="#{myBundle.EditPerfilClienteTitle_empresa}" size="50" maxlength="50"/>
 
                         <p:outputLabel value="#{myBundle.EditPerfilClienteLabel_estadoCivil}" for="estadoCivil" />
-                        <p:inputText id="estadoCivil" value="#{perfilClienteController.selected.estadoCivil}" title="#{myBundle.EditPerfilClienteTitle_estadoCivil}" size="255" maxlength="255"/>
+                        <p:inputText id="estadoCivil" value="#{perfilClienteController.selected.estadoCivil}" title="#{myBundle.EditPerfilClienteTitle_estadoCivil}" size="50" maxlength="50"/>
 
                         <p:outputLabel value="#{myBundle.EditPerfilClienteLabel_fechaInscripcion}" for="fechaInscripcion" />
                         <p:calendar id="fechaInscripcion" pattern="MM/dd/yyyy" value="#{perfilClienteController.selected.fechaInscripcion}" title="#{myBundle.EditPerfilClienteTitle_fechaInscripcion}"  showOn="button"/>
@@ -45,35 +45,32 @@
                         <p:calendar id="fechaNacimiento" pattern="MM/dd/yyyy" value="#{perfilClienteController.selected.fechaNacimiento}" title="#{myBundle.EditPerfilClienteTitle_fechaNacimiento}"  showOn="button"/>
 
                         <p:outputLabel value="#{myBundle.EditPerfilClienteLabel_genero}" for="genero" />
-                        <p:inputText id="genero" value="#{perfilClienteController.selected.genero}" title="#{myBundle.EditPerfilClienteTitle_genero}" size="255" maxlength="255"/>
+                        <p:inputText id="genero" value="#{perfilClienteController.selected.genero}" title="#{myBundle.EditPerfilClienteTitle_genero}" size="50" maxlength="50"/>
 
                         <p:outputLabel value="#{myBundle.EditPerfilClienteLabel_identificacion}" for="identificacion" />
-                        <p:inputText id="identificacion" value="#{perfilClienteController.selected.identificacion}" title="#{myBundle.EditPerfilClienteTitle_identificacion}" size="255" maxlength="255"/>
+                        <p:inputText id="identificacion" value="#{perfilClienteController.selected.identificacion}" title="#{myBundle.EditPerfilClienteTitle_identificacion}" size="50" maxlength="50"/>
 
                         <p:outputLabel value="#{myBundle.EditPerfilClienteLabel_nombres}" for="nombres" />
-                        <p:inputText id="nombres" value="#{perfilClienteController.selected.nombres}" title="#{myBundle.EditPerfilClienteTitle_nombres}" size="255" maxlength="255"/>
+                        <p:inputText id="nombres" value="#{perfilClienteController.selected.nombres}" title="#{myBundle.EditPerfilClienteTitle_nombres}" size="50" maxlength="50"/>
 
                         <p:outputLabel value="#{myBundle.EditPerfilClienteLabel_ocupacion}" for="ocupacion" />
-                        <p:inputText id="ocupacion" value="#{perfilClienteController.selected.ocupacion}" title="#{myBundle.EditPerfilClienteTitle_ocupacion}" size="255" maxlength="255"/>
+                        <p:inputText id="ocupacion" value="#{perfilClienteController.selected.ocupacion}" title="#{myBundle.EditPerfilClienteTitle_ocupacion}" size="50" maxlength="50"/>
 
                         <p:outputLabel value="#{myBundle.EditPerfilClienteLabel_paisNacimiento}" for="paisNacimiento" />
-                        <p:inputText id="paisNacimiento" value="#{perfilClienteController.selected.paisNacimiento}" title="#{myBundle.EditPerfilClienteTitle_paisNacimiento}" size="255" maxlength="255"/>
+                        <p:inputText id="paisNacimiento" value="#{perfilClienteController.selected.paisNacimiento}" title="#{myBundle.EditPerfilClienteTitle_paisNacimiento}" size="50" maxlength="50"/>
 
                         <p:outputLabel value="#{myBundle.EditPerfilClienteLabel_profesion}" for="profesion" />
-                        <p:inputText id="profesion" value="#{perfilClienteController.selected.profesion}" title="#{myBundle.EditPerfilClienteTitle_profesion}" size="255" maxlength="255"/>
+                        <p:inputText id="profesion" value="#{perfilClienteController.selected.profesion}" title="#{myBundle.EditPerfilClienteTitle_profesion}" size="50" maxlength="50"/>
 
                         <p:outputLabel value="#{myBundle.EditPerfilClienteLabel_telefonoCelular}" for="telefonoCelular" />
-                        <p:inputText id="telefonoCelular" value="#{perfilClienteController.selected.telefonoCelular}" title="#{myBundle.EditPerfilClienteTitle_telefonoCelular}" size="255" maxlength="255"/>
+                        <p:inputText id="telefonoCelular" value="#{perfilClienteController.selected.telefonoCelular}" title="#{myBundle.EditPerfilClienteTitle_telefonoCelular}" size="50" maxlength="50"/>
 
                         <p:outputLabel value="#{myBundle.EditPerfilClienteLabel_telefonoFijo}" for="telefonoFijo" />
-                        <p:inputText id="telefonoFijo" value="#{perfilClienteController.selected.telefonoFijo}" title="#{myBundle.EditPerfilClienteTitle_telefonoFijo}" size="255" maxlength="255"/>
+                        <p:inputText id="telefonoFijo" value="#{perfilClienteController.selected.telefonoFijo}" title="#{myBundle.EditPerfilClienteTitle_telefonoFijo}" size="50" maxlength="50"/>
 
                         <p:outputLabel value="#{myBundle.EditPerfilClienteLabel_tipoIdentificacion}" for="tipoIdentificacion" />
-                        <p:inputText id="tipoIdentificacion" value="#{perfilClienteController.selected.tipoIdentificacion}" title="#{myBundle.EditPerfilClienteTitle_tipoIdentificacion}" size="255" maxlength="255"/>
+                        <p:inputText id="tipoIdentificacion" value="#{perfilClienteController.selected.tipoIdentificacion}" title="#{myBundle.EditPerfilClienteTitle_tipoIdentificacion}" size="50" maxlength="50"/>
 
-
-                        <h:outputLabel value="#{myBundle.EditPerfilClienteLabel_id}" for="id" />
-                        <h:outputText id="id" value="#{perfilClienteController.selected.id}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{perfilClienteController.save}" value="#{myBundle.Save}" update="display,:PerfilClienteListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PerfilClienteEditDialog'));">
                         <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
