@@ -13,6 +13,10 @@
                 <p:submenu label="#{myBundle.ModuloPerfilCliente}">
                     <p:menuitem value="#{myBundle.PerfilClienteHeading}" outcome="/perfilCliente/index" />
                 </p:submenu>
+                <p:submenu label="#{myBundle.ModuloConfiguracion}" rendered="#{request.isUserInRole('registereduser')}">
+                    <p:menuitem value="#{myBundle.CredentialsHeading}" outcome="/credentials/index" />
+                    <p:menuitem value="#{myBundle.GroupsHeading}" outcome="/groups/index" />
+                </p:submenu>
                 <p:menuitem value="Salir" actionListener="#{usuario.logout()}" />
             </p:menubar>
         </h:form>
