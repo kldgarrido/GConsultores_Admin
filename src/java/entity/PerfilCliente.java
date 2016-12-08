@@ -8,6 +8,7 @@ package entity;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -26,6 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "perfil_cliente")
+@Cacheable(false)
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "PerfilCliente.findAll", query = "SELECT p FROM PerfilCliente p"),
@@ -50,7 +52,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PerfilCliente.findByTelefonoFijo", query = "SELECT p FROM PerfilCliente p WHERE p.telefonoFijo = :telefonoFijo"),
     @NamedQuery(name = "PerfilCliente.findByTipoIdentificacion", query = "SELECT p FROM PerfilCliente p WHERE p.tipoIdentificacion = :tipoIdentificacion"),
     @NamedQuery(name = "PerfilCliente.findById", query = "SELECT p FROM PerfilCliente p WHERE p.id = :id")})
-public class PerfilCliente implements Serializable {
+public class PerfilCliente implements Serializable, EntityIdUUID {
     private static final long serialVersionUID = 1L;
     @Size(max = 255)
     @Column(name = "apellidos")

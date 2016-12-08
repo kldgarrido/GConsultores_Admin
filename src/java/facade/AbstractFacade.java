@@ -5,7 +5,9 @@
  */
 package facade;
 
+import entity.EntityIdUUID;
 import java.util.List;
+import java.util.UUID;
 import javax.persistence.EntityManager;
 
 /**
@@ -22,10 +24,19 @@ public abstract class AbstractFacade<T> {
     protected abstract EntityManager getEntityManager();
 
     public void create(T entity) {
+//        MyEntity entityTemp = (MyEntity) entity;
+//        if(entityTemp.getId()==null){
+//            entityTemp.setId(UUID.randomUUID().toString());
+//        }
         getEntityManager().persist(entity);
     }
 
     public void edit(T entity) {
+        EntityIdUUID temp = (EntityIdUUID) entity;
+        
+        if(temp.getId()==null){
+            temp.setId(UUID.randomUUID().toString());
+        }
         getEntityManager().merge(entity);
     }
 
