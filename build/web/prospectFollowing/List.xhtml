@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="ProspectFollowingListForm">
+
+        <p:panel header="#{myBundle.ListProspectFollowingTitle}">
+            <p:contextMenu id="ProspectFollowingDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('ProspectFollowingListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('ProspectFollowingListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('ProspectFollowingListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('ProspectFollowingListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.ProspectFollowingMenuItem_prospect}" icon="ui-icon-search"  actionListener="#{prospectFollowingController.prepareProspect}" update=":ProspectViewForm" oncomplete="PF('ProspectViewDialog').show()" disabled="#{empty prospectFollowingController.selected.prospect}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{prospectFollowingController.items}"
+                         var="item"
+                         rowKey="#{item.id}"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{prospectFollowingController.selected}">
+
+                <p:ajax event="rowSelect"   update=":ProspectFollowingListForm:createButton :ProspectFollowingListForm:viewButton :ProspectFollowingListForm:editButton :ProspectFollowingListForm:deleteButton :ProspectFollowingListForm:ProspectFollowingDataTableContextMenu" listener="#{prospectFollowingController.resetParents}"/>
+                <p:ajax event="rowUnselect" update=":ProspectFollowingListForm:createButton :ProspectFollowingListForm:viewButton :ProspectFollowingListForm:editButton :ProspectFollowingListForm:deleteButton :ProspectFollowingListForm:ProspectFollowingDataTableContextMenu" listener="#{prospectFollowingController.resetParents}"/>
+                <p:ajax event="contextMenu" update=" :ProspectFollowingListForm:createButton :ProspectFollowingListForm:viewButton :ProspectFollowingListForm:editButton :ProspectFollowingListForm:deleteButton" listener="#{prospectFollowingController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('ProspectFollowingListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.fecha}" filterBy="#{item.fecha}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListProspectFollowingTitle_fecha}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fecha}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.descripcion}" filterBy="#{item.descripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListProspectFollowingTitle_descripcion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.descripcion}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.prospect.name}" filterBy="#{item.prospect.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListProspectFollowingTitle_prospect}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.prospect.name}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{prospectFollowingController.prepareCreate}" update=":ProspectFollowingCreateForm" oncomplete="PF('ProspectFollowingCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":ProspectFollowingViewForm" oncomplete="PF('ProspectFollowingViewDialog').show()" disabled="#{empty prospectFollowingController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":ProspectFollowingEditForm" oncomplete="PF('ProspectFollowingEditDialog').show()" disabled="#{empty prospectFollowingController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{prospectFollowingController.delete}" update=":growl,datalist" disabled="#{empty prospectFollowingController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        
+        <p:panel id="basic" header="#{myBundle.ListProspectFollowingTitle}" footer="" style="margin-bottom:20px" visible="#{!empty prospectController.selected}">
+            <h:panelGrid columns="2" cellpadding="10">
+                
+                <p:dataTable var="prospectFollowing" value="#{prospectController.findProspectFollowing(prospectController.selected)}">
+                    
+                    <p:column sortBy="#{prospectFollowing.fecha}" filterBy="#{prospectFollowing.fecha}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListProspectFollowingTitle_fecha}"/>
+                        </f:facet>
+                        <h:outputText value="#{prospectFollowing.fecha}">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </p:column>
+                        
+                        
+                    <p:column sortBy="#{prospectFollowing.descripcion}" filterBy="#{prospectFollowing.descripcion}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListProspectFollowingTitle_descripcion}"/>
+                        </f:facet>
+                        <h:outputText value="#{prospectFollowing.descripcion}"/>
+                    </p:column>
+                        
+                        
+                    <p:column sortBy="#{prospectFollowing.prospect.name}" filterBy="#{prospectFollowing.prospect.name}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListProspectFollowingTitle_prospect}"/>
+                        </f:facet>
+                        <h:outputText value="#{prospectFollowing.prospect.name}"/>
+                    </p:column>
+                        
+                </p:dataTable>
+                    
+            </h:panelGrid>
+        </p:panel>
+        
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

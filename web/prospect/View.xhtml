@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <ui:composition>
+        
+        <p:dialog id="ProspectViewDlg" widgetVar="ProspectViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewProspectTitle}" closeOnEscape="true">
+            
+            <h:form id="ProspectViewForm">
+                
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{prospectController.selected != null}">
+                        
+                        <h:outputText value="#{myBundle.ListProspectTitle_name}"/>
+                        <h:outputText value="#{prospectController.selected.name}" title="#{myBundle.ViewProspectTitle_name}"/>
+                        
+                        <h:outputText value="#{myBundle.ListProspectTitle_lastname}"/>
+                        <h:outputText value="#{prospectController.selected.lastname}" title="#{myBundle.ViewProspectTitle_lastname}"/>
+                        
+                        <h:outputText value="#{myBundle.ListProspectTitle_email}"/>
+                        <h:outputText value="#{prospectController.selected.email}" title="#{myBundle.ViewProspectTitle_email}"/>
+                        
+                        <h:outputText value="#{myBundle.ListProspectTitle_phone}"/>
+                        <h:outputText value="#{prospectController.selected.phone}" title="#{myBundle.ViewProspectTitle_phone}"/>
+                        
+                        <h:outputText value="#{myBundle.ListProspectTitle_prosecuted}"/>
+                        <h:selectBooleanCheckbox id="prosecuted" value="#{prospectController.selected.prosecuted}" title="#{myBundle.EditProspectTitle_prosecuted}"  disabled="true"/>
+                        
+                        <h:outputText value="#{myBundle.ListProspectTitle_applyDate}"/>
+                        <h:outputText value="#{prospectController.selected.applyDate}" title="#{myBundle.ViewProspectTitle_applyDate}"/>
+                        
+                        <h:outputText value="#{myBundle.ListProspectTitle_calendar_contact}"/>
+                        <h:outputText value="#{prospectController.selected.calendarContact}" title="#{myBundle.ListProspectTitle_calendar_contact}"/>
+                        
+                        <h:outputText value="#{myBundle.ViewProspectLabel_comment}"/>
+                        <h:outputText value="#{prospectController.selected.comment}" title="#{myBundle.ViewProspectTitle_comment}"/>
+                        
+                        <h:outputText value="#{myBundle.ViewProspectLabel_course}"/>
+                        <h:outputText value="#{prospectController.selected.course.name}" title="#{myBundle.ViewProspectTitle_course}"/>
+                        
+                        <h:outputText value="#{myBundle.ViewProspectLabel_prospectType}"/>
+                        <h:outputText value="#{prospectController.selected.prospectType.name}" />
+                                      
+                </p:panelGrid>
+                <p:commandButton value="#{myBundle.Close}" onclick="PF('ProspectViewDialog').hide()"/>
+            </h:panelGroup>
+            
+        </h:form>
+        
+    </p:dialog>
+    
+</ui:composition>
+
+</html>

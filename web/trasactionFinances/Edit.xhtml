@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <ui:composition>
+        <p:dialog id="TrasactionFinancesEditDlg" widgetVar="TrasactionFinancesEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditTrasactionFinancesTitle}" closeOnEscape="true">
+            
+            <h:form id="TrasactionFinancesEditForm">
+                
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{trasactionFinancesController.selected != null}">
+                        
+                        <p:outputLabel value="#{myBundle.EditTrasactionFinancesLabel_operationDate}" for="operationDate" />
+                        <p:calendar id="operationDate" pattern="dd/MM/yyyy HH:mm:ss" value="#{trasactionFinancesController.selected.operationDate}" title="#{myBundle.EditTrasactionFinancesTitle_operationDate}"  showOn="button"/>
+                        
+                        <p:outputLabel value="#{myBundle.EditTrasactionFinancesLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{trasactionFinancesController.selected.descripcion}" title="#{myBundle.EditTrasactionFinancesTitle_descripcion}" size="100" maxlength="100"/>
+                        
+                        <p:outputLabel value="#{myBundle.EditTrasactionFinancesLabel_balance}" for="balance" />
+                        <p:inputText id="balance" value="#{trasactionFinancesController.selected.balance}" title="#{myBundle.EditTrasactionFinancesTitle_balance}"/>
+                        
+                        <p:outputLabel value="#{myBundle.EditTrasactionFinancesLabel_account}" for="account" />
+                        <p:selectOneMenu id="account" value="#{trasactionFinancesController.selected.account}" required="true" requiredMessage="#{myBundle.EditTrasactionFinancesRequiredMessage_account}" converter="accountFinancesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{accountFinancesController.items}"
+                                           var="accountItem"
+                                           itemValue="#{accountItem}"
+                                           itemLabel="#{accountItem.nameAccount.toString()}"
+                                           />
+                            
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{trasactionFinancesController.save}" value="#{myBundle.Save}" update="display,:TrasactionFinancesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TrasactionFinancesEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('TrasactionFinancesEditDialog').hide()"/>
+                </h:panelGroup>
+                
+            </h:form>
+            
+        </p:dialog>
+        
+    </ui:composition>
+    
+</html>

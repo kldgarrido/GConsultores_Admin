@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <ui:composition>
+        
+        <p:dialog id="OperacionGastoCreateDlg" widgetVar="OperacionGastoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateOperacionGastoTitle}" closeOnEscape="true">
+            
+            <h:form id="OperacionGastoCreateForm">
+                
+                <h:panelGroup id="display" rendered="#{operacionGastoController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+                        
+                        <p:outputLabel value="#{myBundle.CreateOperacionGastoLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{operacionGastoController.selected.descripcion}" title="#{myBundle.CreateOperacionGastoTitle_descripcion}" required="true" requiredMessage="#{myBundle.CreateOperacionGastoRequiredMessage_descripcion}" size="50" maxlength="50"/>
+                        
+                        <p:outputLabel value="#{myBundle.CreateOperacionGastoLabel_saldo}" for="saldo" />
+                        <p:inputText id="saldo" value="#{operacionGastoController.selected.saldo}" title="#{myBundle.CreateOperacionGastoTitle_saldo}"/>
+                        
+                        <p:outputLabel value="#{myBundle.CreateOperacionGastoLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="dd/MM/yyyy" value="#{operacionGastoController.selected.fecha}" title="#{myBundle.CreateOperacionGastoTitle_fecha}"  showOn="button"/>
+                        
+                        <p:outputLabel value="#{myBundle.CreateOperacionGastoLabel_gasto}" for="gasto" />
+                        <p:selectOneMenu id="gasto" value="#{operacionGastoController.selected.gasto}" required="true" requiredMessage="#{myBundle.CreateOperacionGastoRequiredMessage_gasto}" converter="gastoConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{gastoController.items}"
+                                           var="gastoItem"
+                                           itemValue="#{gastoItem}"
+                                           itemLabel="#{gastoItem.name.toString()}"
+                                           />
+                            
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel value="#{myBundle.CreateOperacionGastoLabel_account}" for="account" />
+                        <p:selectOneMenu id="account" value="#{operacionGastoController.selected.account}"  converter="accountFinancesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{accountFinancesController.items}"
+                                           var="accountItem"
+                                           itemValue="#{accountItem}"
+                                           itemLabel="#{accountItem.nameAccount.toString()}"
+                                           />
+                            
+                        </p:selectOneMenu>
+                        
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{operacionGastoController.saveNew}" value="#{myBundle.Save}" update="display,:OperacionGastoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('OperacionGastoCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('OperacionGastoCreateDialog').hide()"/>
+                </h:panelGroup>
+                
+            </h:form>
+            
+        </p:dialog>
+        
+    </ui:composition>
+    
+</html>

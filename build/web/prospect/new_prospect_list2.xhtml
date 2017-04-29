@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    
+    <h:form id="ProspectListForm">
+        
+        <p:panel header="#{myBundle.ListProspectTitle}">
+            <p:contextMenu id="ProspectDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" disabled="false" onclick="document.getElementById('ProspectListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('ProspectListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('ProspectListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" disabled="true"   onclick="document.getElementById('ProspectListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{prospectController.newProspects}"
+                         var="item"
+                         rowKey="#{item.id}"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{prospectController.selected}">
+                
+                <p:ajax event="rowSelect"   update=":ProspectListForm:createButton :ProspectListForm:viewButton :ProspectListForm:editButton :ProspectListForm:deleteButton :ProspectListForm:ProspectDataTableContextMenu :ProspectListForm:ProspectFollowingDataTablePanel :ProspectListForm:ProspectFollowingCreatePanel"/>
+                <p:ajax event="rowUnselect" update=":ProspectListForm:createButton :ProspectListForm:viewButton :ProspectListForm:editButton :ProspectListForm:deleteButton :ProspectListForm:ProspectDataTableContextMenu :ProspectListForm:ProspectFollowingDataTablePanel :ProspectListForm:ProspectFollowingCreatePanel"/>
+                <p:ajax event="contextMenu" update=" :ProspectListForm:createButton :ProspectListForm:viewButton :ProspectListForm:editButton :ProspectListForm:deleteButton"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('ProspectListForm:viewButton').click();"/>
+                
+                <p:column sortBy="#{item.name}" filterBy="#{item.name}" filterMatchMode="contains">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListProspectTitle_name}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.name}"/>
+                </p:column>
+                
+                
+                <p:column sortBy="#{item.lastname}" filterBy="#{item.lastname}" filterMatchMode="contains">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListProspectTitle_lastname}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.lastname}"/>
+                </p:column>
+                
+                
+                <p:column sortBy="#{item.email}" filterBy="#{item.email}" filterMatchMode="contains">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListProspectTitle_email}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.email}"/>
+                </p:column>
+                
+                
+                <p:column sortBy="#{item.phone}" filterBy="#{item.phone}" filterMatchMode="contains">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListProspectTitle_phone}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.phone}"/>
+                </p:column>
+                
+                <!--
+               <p:column sortBy="#{item.sendNotification}" filterBy="#{item.sendNotification}">
+                   <f:facet name="header">
+                       <h:outputText value="#{myBundle.ListProspectTitle_sendNotification}"/>
+                   </f:facet>
+                   <h:selectBooleanCheckbox id="sendNotification" value="#{item.sendNotification}" title="#{myBundle.EditProspectTitle_sendNotification}"  disabled="true"/>
+               </p:column>
+                -->
+                
+                <p:column sortBy="#{item.applyDate}" filterBy="#{item.applyDate}" filterMatchMode="contains">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListProspectTitle_applyDate}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.applyDate}"/>
+                </p:column>
+                
+                <p:column sortBy="#{item.calendarContact}" filterBy="#{item.calendarContact}" filterMatchMode="contains">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListProspectTitle_calendar_contact}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.calendarContact}"/>
+                </p:column>
+                
+                
+                
+                
+                <p:column sortBy="#{item.comment}" filterBy="#{item.comment}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ViewProspectLabel_comment}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.comment}"/>
+                </p:column>
+                
+                
+                <p:column sortBy="#{item.course.name}" filterBy="#{item.course.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ViewProspectLabel_course}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.course.name}"/>
+                </p:column>
+                    
+                <p:column sortBy="#{item.prospectType.name}" filterBy="#{item.prospectType.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListProspectTitle_prospectType}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.prospectType.name}"/>
+                </p:column>
+                                        
+                <p:column sortBy="#{item.prosecuted}" filterBy="#{item.prosecuted}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListProspectTitle_prosecuted}"/>
+                    </f:facet>
+                    
+                    <p:commandButton id="prosecutedButton" value="#{item.prosecuted?myBundle.EditProspectTitle_unprosecuted_button:myBundle.EditProspectTitle_prosecuted_button}" actionListener="#{prospectController.prosecutedAction(prospectController.selected)}" update=":growl,datalist">
+                        <p:confirm header="#{myBundle.ConfirmationProsecutedHead}" message="#{myBundle.ConfirmationprosecutedMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    
+                </p:column>
+                
+                
+            </p:dataTable>
+            
+            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{prospectController.prepareCreate}" update=":ProspectCreateForm" oncomplete="PF('ProspectCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":ProspectViewForm" oncomplete="PF('ProspectViewDialog').show()" disabled="#{empty prospectController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":ProspectEditForm" oncomplete="PF('ProspectEditDialog').show()" disabled="#{empty prospectController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{prospectController.delete}" update=":growl,datalist" disabled="#{empty prospectController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+            
+        </p:panel>
+        
+        <p:panel id="ProspectFollowingCreatePanel" header="#{myBundle.CreateProspectFollowingTitle}" visible="#{!empty prospectController.selected}">
+            <h:panelGrid columns="6" cellpadding="10">
+                <p:outputLabel value="#{myBundle.CreateProspectFollowingLabel_fecha}" for="fecha" />
+                <p:calendar id="fecha" pattern="dd/MM/yyyy HH:mm:ss" value="#{prospectController.fechaNewProspectFollowings}" title="#{myBundle.CreateProspectFollowingTitle_fecha}" required="true" requiredMessage="#{myBundle.CreateProspectFollowingRequiredMessage_fecha}" showOn="button"/>
+                
+                <p:outputLabel value="#{myBundle.CreateProspectFollowingLabel_descripcion}" for="descripcion" />
+                <p:inputTextarea rows="3" cols="100" id="descripcion" value="#{prospectController.descripcionNewProspectFollowings}" title="#{myBundle.CreateProspectFollowingTitle_descripcion}" required="true" requiredMessage="#{myBundle.CreateProspectFollowingRequiredMessage_descripcion}"/>
+                
+                <p:commandButton actionListener="#{prospectController.createProspectFollowing(prospectController.selected)}" value="#{myBundle.Save}" update=":ProspectListForm:ProspectFollowingDataTablePanel"/>
+            </h:panelGrid>
+        </p:panel>
+        
+        <p:panel id="ProspectFollowingDataTablePanel" header="#{myBundle.ListProspectFollowingTitle}" footer="#{myBundle.ProspectFollowingFooter}" style="margin-bottom:20px" visible="#{!empty prospectController.selected}">
+            <h:panelGrid columns="2" cellpadding="10">
+                
+                <p:dataTable var="prospectFollowing" value="#{prospectController.findProspectFollowing(prospectController.selected)}">
+                    
+                    <p:column sortBy="#{prospectFollowing.fecha}" filterBy="#{prospectFollowing.fecha}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListProspectFollowingTitle_fecha}"/>
+                        </f:facet>
+                        <h:outputText value="#{prospectFollowing.fecha}">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </p:column>
+                    
+                    
+                    <p:column sortBy="#{prospectFollowing.descripcion}" filterBy="#{prospectFollowing.descripcion}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListProspectFollowingTitle_descripcion}"/>
+                        </f:facet>
+                        <h:outputText value="#{prospectFollowing.descripcion}"/>
+                    </p:column>
+                    
+                    
+                    <p:column sortBy="#{prospectFollowing.prospect.getFullName()}" filterBy="#{prospectFollowing.prospect.getFullName()}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListProspectFollowingTitle_prospect}"/>
+                        </f:facet>
+                        <h:outputText value="#{prospectFollowing.prospect.getFullName()}"/>
+                    </p:column>
+                    
+                </p:dataTable>
+                
+            </h:panelGrid>
+        </p:panel>
+        
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+    
+</ui:composition>

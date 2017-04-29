@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TrasactionFinancesViewDlg" widgetVar="TrasactionFinancesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewTrasactionFinancesTitle}" closeOnEscape="true">
+
+            <h:form id="TrasactionFinancesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{trasactionFinancesController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewTrasactionFinancesLabel_operationDate}"/>
+                        <h:outputText value="#{trasactionFinancesController.selected.operationDate}" title="#{myBundle.ViewTrasactionFinancesTitle_operationDate}">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewTrasactionFinancesLabel_descripcion}"/>
+                        <h:outputText value="#{trasactionFinancesController.selected.descripcion}" title="#{myBundle.ViewTrasactionFinancesTitle_descripcion}"/>
+
+                        <h:outputText value="#{myBundle.ViewTrasactionFinancesLabel_balance}"/>
+                        <h:outputText value="#{trasactionFinancesController.selected.balance}" title="#{myBundle.ViewTrasactionFinancesTitle_balance}"/>
+
+                        <h:outputText value="#{myBundle.ViewTrasactionFinancesLabel_account}"/>
+                        <h:outputText value="#{trasactionFinancesController.selected.account.nameAccount}"/>
+                    </p:panelGrid>
+                  <p:commandButton value="#{myBundle.Close}" onclick="PF('TrasactionFinancesViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

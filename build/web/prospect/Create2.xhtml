@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <ui:composition>
+        
+        <p:dialog id="ProspectCreateDlg" widgetVar="ProspectCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateProspectTitle}" closeOnEscape="true">
+            
+            <h:form id="ProspectCreateForm">
+                
+                <h:panelGroup id="display" rendered="#{prospectController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+                        
+                        <p:outputLabel value="#{myBundle.ListProspectTitle_name}" for="name" />
+                        <p:inputText id="name" value="#{prospectController.selected.name}" title="#{myBundle.CreateProspectTitle_name}" size="40" maxlength="40"/>
+                        
+                        <p:outputLabel value="#{myBundle.ListProspectTitle_lastname}" for="lastname" />
+                        <p:inputText id="lastname" value="#{prospectController.selected.lastname}" title="#{myBundle.CreateProspectTitle_lastname}" size="40" maxlength="40"/>
+                        
+                        <p:outputLabel value="#{myBundle.ListProspectTitle_email}" for="email" />
+                        <p:inputText id="email" value="#{prospectController.selected.email}" title="#{myBundle.CreateProspectTitle_email}" size="30" maxlength="30"/>
+                        
+                        <p:outputLabel value="#{myBundle.ListProspectTitle_phone}" for="phone" />
+                        <p:inputText id="phone" value="#{prospectController.selected.phone}" title="#{myBundle.CreateProspectTitle_phone}" size="20" maxlength="20"/>
+                        
+                        <p:outputLabel value="#{myBundle.ListProspectTitle_prosecuted}" for="prosecuted" />
+                        <p:selectBooleanCheckbox id="prosecuted" value="#{prospectController.selected.prosecuted}" />
+                        
+                        <p:outputLabel value="#{myBundle.ListProspectTitle_applyDate}" for="applyDate" />
+                        <p:inputText id="applyDate" value="#{prospectController.selected.applyDate}" title="#{myBundle.CreateProspectTitle_applyDate}" size="30" maxlength="30"/>
+                        
+                        <p:outputLabel value="#{myBundle.ViewProspectLabel_comment}" for="comment" />
+                        <p:inputTextarea rows="4" cols="30" id="comment" value="#{prospectController.selected.comment}" title="#{myBundle.CreateProspectTitle_comment}" />
+                        
+                        <p:outputLabel value="#{myBundle.CreateProspectLabel_prospectType}" for="prospectType" />
+                        <p:selectOneMenu id="prospectType" value="#{prospectController.selected.prospectType}"  converter="prospectTypeConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{prospectTypeController.items}"
+                                           var="prospectTypeItem"
+                                           itemValue="#{prospectTypeItem}"
+                                           itemLabel="#{prospectTypeItem.name.toString()}"
+                                           />
+                            
+                        </p:selectOneMenu>
+                        
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{prospectController.saveNew}" value="#{myBundle.Save}" update="display,:ProspectListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ProspectCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('ProspectCreateDialog').hide()"/>
+                </h:panelGroup>
+                
+            </h:form>
+            
+        </p:dialog>
+        
+    </ui:composition>
+    
+</html>

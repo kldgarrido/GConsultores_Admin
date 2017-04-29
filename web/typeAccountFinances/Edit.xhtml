@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="TypeAccountFinancesEditDlg" widgetVar="TypeAccountFinancesEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditTypeAccountFinancesTitle}" closeOnEscape="true">
+
+            <h:form id="TypeAccountFinancesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{typeAccountFinancesController.selected != null}">
+
+                        <p:outputLabel value="#{myBundle.EditTypeAccountFinancesLabel_nameAccount}" for="nameAccount" />
+                        <p:inputText id="nameAccount" value="#{typeAccountFinancesController.selected.nameAccount}" title="#{myBundle.EditTypeAccountFinancesTitle_nameAccount}" required="true" requiredMessage="#{myBundle.EditTypeAccountFinancesRequiredMessage_nameAccount}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.EditTypeAccountFinancesLabel_polarity}" for="polarity" />
+                        <p:inputText id="polarity" value="#{typeAccountFinancesController.selected.polarity}" title="#{myBundle.EditTypeAccountFinancesTitle_polarity}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{typeAccountFinancesController.save}" value="#{myBundle.Save}" update="display,:TypeAccountFinancesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TypeAccountFinancesEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('TypeAccountFinancesEditDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

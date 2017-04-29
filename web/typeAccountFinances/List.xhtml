@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="TypeAccountFinancesListForm">
+
+        <p:panel header="#{myBundle.ListTypeAccountFinancesTitle}">
+            <p:contextMenu id="TypeAccountFinancesDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('TypeAccountFinancesListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('TypeAccountFinancesListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('TypeAccountFinancesListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('TypeAccountFinancesListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.TypeAccountFinancesMenuItem_accountFinancesCollection}" icon="ui-icon-search"  action="#{typeAccountFinancesController.navigateAccountFinancesCollection}" disabled="#{empty typeAccountFinancesController.selected.accountFinancesCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{typeAccountFinancesController.items}"
+                         var="item"
+                         rowKey="#{item.id}"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{typeAccountFinancesController.selected}">
+
+                <p:ajax event="rowSelect"   update=":TypeAccountFinancesListForm:createButton :TypeAccountFinancesListForm:viewButton :TypeAccountFinancesListForm:editButton :TypeAccountFinancesListForm:deleteButton :TypeAccountFinancesListForm:TypeAccountFinancesDataTableContextMenu" listener="#{typeAccountFinancesController.resetParents}"/>
+                <p:ajax event="rowUnselect" update=":TypeAccountFinancesListForm:createButton :TypeAccountFinancesListForm:viewButton :TypeAccountFinancesListForm:editButton :TypeAccountFinancesListForm:deleteButton :TypeAccountFinancesListForm:TypeAccountFinancesDataTableContextMenu" listener="#{typeAccountFinancesController.resetParents}"/>
+                <p:ajax event="contextMenu" update=" :TypeAccountFinancesListForm:createButton :TypeAccountFinancesListForm:viewButton :TypeAccountFinancesListForm:editButton :TypeAccountFinancesListForm:deleteButton" listener="#{typeAccountFinancesController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('TypeAccountFinancesListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.nameAccount}" filterBy="#{item.nameAccount}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTypeAccountFinancesTitle_nameAccount}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nameAccount}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.polarity}" filterBy="#{item.polarity}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTypeAccountFinancesTitle_polarity}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.polarity}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{typeAccountFinancesController.prepareCreate}" update=":TypeAccountFinancesCreateForm" oncomplete="PF('TypeAccountFinancesCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":TypeAccountFinancesViewForm" oncomplete="PF('TypeAccountFinancesViewDialog').show()" disabled="#{empty typeAccountFinancesController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":TypeAccountFinancesEditForm" oncomplete="PF('TypeAccountFinancesEditDialog').show()" disabled="#{empty typeAccountFinancesController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{typeAccountFinancesController.delete}" update=":growl,datalist" disabled="#{empty typeAccountFinancesController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

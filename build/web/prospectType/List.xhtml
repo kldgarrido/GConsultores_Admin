@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="ProspectTypeListForm">
+
+        <p:panel header="#{myBundle.ListProspectTypeTitle}">
+            <p:contextMenu id="ProspectTypeDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('ProspectTypeListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('ProspectTypeListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('ProspectTypeListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('ProspectTypeListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.ProspectTypeMenuItem_prospectCollection}" icon="ui-icon-search"  action="#{prospectTypeController.navigateProspectCollection}" disabled="#{empty prospectTypeController.selected.prospectCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{prospectTypeController.items}"
+                         var="item"
+                         rowKey="#{item.id}"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{prospectTypeController.selected}">
+
+                <p:ajax event="rowSelect"   update=":ProspectTypeListForm:createButton :ProspectTypeListForm:viewButton :ProspectTypeListForm:editButton :ProspectTypeListForm:deleteButton :ProspectTypeListForm:ProspectTypeDataTableContextMenu" listener="#{prospectTypeController.resetParents}"/>
+                <p:ajax event="rowUnselect" update=":ProspectTypeListForm:createButton :ProspectTypeListForm:viewButton :ProspectTypeListForm:editButton :ProspectTypeListForm:deleteButton :ProspectTypeListForm:ProspectTypeDataTableContextMenu" listener="#{prospectTypeController.resetParents}"/>
+                <p:ajax event="contextMenu" update=" :ProspectTypeListForm:createButton :ProspectTypeListForm:viewButton :ProspectTypeListForm:editButton :ProspectTypeListForm:deleteButton" listener="#{prospectTypeController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('ProspectTypeListForm:viewButton').click();"/>
+
+
+                <p:column sortBy="#{item.name}" filterBy="#{item.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListProspectTypeTitle_name}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.name}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{prospectTypeController.prepareCreate}" update=":ProspectTypeCreateForm" oncomplete="PF('ProspectTypeCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":ProspectTypeViewForm" oncomplete="PF('ProspectTypeViewDialog').show()" disabled="#{empty prospectTypeController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":ProspectTypeEditForm" oncomplete="PF('ProspectTypeEditDialog').show()" disabled="#{empty prospectTypeController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{prospectTypeController.delete}" update=":growl,datalist" disabled="#{empty prospectTypeController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

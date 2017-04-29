@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template.xhtml">
+                    
+    <ui:define name="title">
+        <h:outputText value="#{myBundle.ProspectTitle}"/>
+    </ui:define>
+        
+    <ui:define name="body">
+        <h:form>
+            
+            <h:panelGroup id="display">
+                
+                
+                <p:panel id="ProspectCreatePanel" header="#{myBundle.CreateProspectTitle}">
+                    <h:panelGrid columns="6" cellpadding="10">
+                        
+                        <p:outputLabel value="#{myBundle.ListProspectTitle_applyDate}" style="font-weight: bold;"/>
+                        <p:outputLabel value="#{myBundle.ListProspectTitle_name}" style="font-weight: bold;"/>
+                        <p:outputLabel value="#{myBundle.ListProspectTitle_lastname}" style="font-weight: bold;"/>
+                        <p:outputLabel value="#{myBundle.ListProspectTitle_email}" style="font-weight: bold;"/>
+                        <p:outputLabel value="#{myBundle.ListProspectTitle_phone}" style="font-weight: bold;"/>
+                        <p:outputLabel value="#{myBundle.ViewProspectLabel_comment}" style="font-weight: bold;"/>
+                        
+                        <h:outputText value="#{prospectDetailController.detail.applyDate}"/>
+                        <h:outputText value="#{prospectDetailController.detail.name}"/>
+                        <h:outputText value="#{prospectDetailController.detail.lastname}"/>
+                        <h:outputText value="#{prospectDetailController.detail.email}"/>
+                        <h:outputText value="#{prospectDetailController.detail.phone}"/>
+                        <h:outputText value="#{prospectDetailController.detail.comment}"/>
+                            
+                    </h:panelGrid>
+                </p:panel>
+                    
+                    
+                <p:panel id="ProspectFollowingCreatePanel" header="#{myBundle.CreateProspectFollowingTitle}">
+                    <h:panelGrid columns="6" cellpadding="10">
+                        <p:outputLabel value="#{myBundle.CreateProspectFollowingLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="dd/MM/yyyy HH:mm:ss" value="#{prospectDetailController.newDate}" title="#{myBundle.CreateProspectFollowingTitle_fecha}" required="true" requiredMessage="#{myBundle.CreateProspectFollowingRequiredMessage_fecha}" showOn="button"/>
+                            
+                        <p:outputLabel value="#{myBundle.CreateProspectFollowingLabel_descripcion}" for="descripcion" />
+                        <p:inputTextarea rows="3" cols="100" id="descripcion" value="#{prospectDetailController.newComent}" title="#{myBundle.CreateProspectFollowingTitle_descripcion}" required="true" requiredMessage="#{myBundle.CreateProspectFollowingRequiredMessage_descripcion}"/>
+                            
+                        <p:commandButton actionListener="#{prospectDetailController.saveProspectFollowing()}" value="#{myBundle.Save}" update="display: datalist"/>
+                    </h:panelGrid>
+                </p:panel>
+                    
+                <p:panel id="datalist" header="#{myBundle.ListProspectFollowingTitle}" footer="#{myBundle.ProspectFollowingFooter}" style="margin-bottom:20px">
+                    <h:panelGrid columns="2" cellpadding="10">
+                        
+                        <p:dataTable var="item" value="#{prospectDetailController.prospectFollowings}">
+                            
+                            <p:column sortBy="#{prospectFollowing.fecha}" filterBy="#{prospectFollowing.fecha}" filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="#{myBundle.ListProspectFollowingTitle_fecha}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.fecha}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                </h:outputText>
+                            </p:column>
+                                
+                                
+                            <p:column sortBy="#{prospectFollowing.descripcion}" filterBy="#{prospectFollowing.descripcion}" filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="#{myBundle.ListProspectFollowingTitle_descripcion}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.descripcion}"/>
+                            </p:column>
+                                
+                        </p:dataTable>
+                            
+                    </h:panelGrid>
+                </p:panel>
+                    
+            </h:panelGroup>
+        </h:form>
+    </ui:define>
+        
+</ui:composition>

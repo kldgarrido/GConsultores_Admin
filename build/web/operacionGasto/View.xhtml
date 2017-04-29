@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <ui:composition>
+        
+        <p:dialog id="OperacionGastoViewDlg" widgetVar="OperacionGastoViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewOperacionGastoTitle}" closeOnEscape="true">
+            
+            <h:form id="OperacionGastoViewForm">
+                
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{operacionGastoController.selected != null}">
+                        
+                        <h:outputText value="#{myBundle.ViewOperacionGastoLabel_descripcion}"/>
+                        <h:outputText value="#{operacionGastoController.selected.descripcion}" title="#{myBundle.ViewOperacionGastoTitle_descripcion}"/>
+                        
+                        <h:outputText value="#{myBundle.ViewOperacionGastoLabel_saldo}"/>
+                        <h:outputText value="#{operacionGastoController.selected.saldo}" title="#{myBundle.ViewOperacionGastoTitle_saldo}"/>
+                        
+                        <h:outputText value="#{myBundle.ViewOperacionGastoLabel_fecha}"/>
+                        <h:outputText value="#{operacionGastoController.selected.fecha}" title="#{myBundle.ViewOperacionGastoTitle_fecha}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                        
+                        <h:outputText value="#{myBundle.ViewOperacionGastoLabel_gasto}"/>
+                        <h:outputText value="#{operacionGastoController.selected.gasto.name}"/>
+                        
+                        <h:outputText value="#{myBundle.ViewOperacionGastoLabel_account}"/>
+                        <h:outputText value="#{operacionGastoController.selected.account.nameAccount}"/>
+                        
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('OperacionGastoViewDialog').hide()"/>
+                </h:panelGroup>
+                
+            </h:form>
+            
+        </p:dialog>
+        
+    </ui:composition>
+    
+</html>

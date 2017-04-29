@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ProspectFollowingEditDlg" widgetVar="ProspectFollowingEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditProspectFollowingTitle}" closeOnEscape="true">
+
+            <h:form id="ProspectFollowingEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{prospectFollowingController.selected != null}">
+
+                        <p:outputLabel value="#{myBundle.EditProspectFollowingLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="dd/MM/yyyy HH:mm:ss" value="#{prospectFollowingController.selected.fecha}" title="#{myBundle.EditProspectFollowingTitle_fecha}" required="true" requiredMessage="#{myBundle.EditProspectFollowingRequiredMessage_fecha}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditProspectFollowingLabel_descripcion}" for="descripcion" />
+                        <p:inputTextarea rows="4" cols="30" id="descripcion" value="#{prospectFollowingController.selected.descripcion}" title="#{myBundle.EditProspectFollowingTitle_descripcion}" required="true" requiredMessage="#{myBundle.EditProspectFollowingRequiredMessage_descripcion}"/>
+
+                        <p:outputLabel value="#{myBundle.EditProspectFollowingLabel_prospect}" for="prospect" />
+                        <p:selectOneMenu id="prospect" value="#{prospectFollowingController.selected.prospect}" required="true" requiredMessage="#{myBundle.EditProspectFollowingRequiredMessage_prospect}" converter="prospectConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{prospectController.items}"
+                                           var="prospectItem"
+                                           itemValue="#{prospectItem}"
+                                           itemLabel="#{prospectItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{prospectFollowingController.save}" value="#{myBundle.Save}" update="display,:ProspectFollowingListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ProspectFollowingEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('ProspectFollowingEditDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

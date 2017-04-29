@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <ui:composition>
+        
+        <p:dialog id="GastoCreateDlg" widgetVar="GastoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateGastoTitle}" closeOnEscape="true">
+            
+            <h:form id="GastoCreateForm">
+                
+                <h:panelGroup id="display" rendered="#{gastoController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+                        
+                        
+                        <p:outputLabel value="#{myBundle.CreateGastoLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{gastoController.selected.name}" title="#{myBundle.CreateGastoTitle_name}" required="true" requiredMessage="#{myBundle.CreateGastoRequiredMessage_name}" size="50" maxlength="50"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{gastoController.saveNew}" value="#{myBundle.Save}" update="display,:GastoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('GastoCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('GastoCreateDialog').hide()"/>
+                </h:panelGroup>
+                
+            </h:form>
+            
+        </p:dialog>
+        
+    </ui:composition>
+    
+</html>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+        <h:form id="GastoListForm">
+
+            <p:panel header="#{myBundle.ListGastoTitle}">
+                <p:contextMenu id="GastoDataTableContextMenu" for="datalist">  
+                    <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('GastoListForm:createButton').click();" icon="ui-icon-plus"/>
+                    <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('GastoListForm:viewButton').click();" icon="ui-icon-search"/>
+                    <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('GastoListForm:editButton').click();" icon="ui-icon-pencil"/>
+                    <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('GastoListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                    <p:separator/>
+                    <p:menuitem value="#{myBundle.GastoMenuItem_operacionGastoCollection}" icon="ui-icon-search"  action="#{gastoController.navigateOperacionGastoCollection}" disabled="#{empty gastoController.selected.operacionGastoCollection}" ajax="false"/>  
+                </p:contextMenu>
+                <p:dataTable id="datalist"
+                             value="#{gastoController.items}"
+                             var="item"
+                             rowKey="#{item.id}"
+                             paginator="true"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             selectionMode="single"
+                             selection="#{gastoController.selected}">
+
+                    <p:ajax event="rowSelect"   update=":GastoListForm:createButton :GastoListForm:viewButton :GastoListForm:editButton :GastoListForm:deleteButton :GastoListForm:GastoDataTableContextMenu" listener="#{gastoController.resetParents}"/>
+                    <p:ajax event="rowUnselect" update=":GastoListForm:createButton :GastoListForm:viewButton :GastoListForm:editButton :GastoListForm:deleteButton :GastoListForm:GastoDataTableContextMenu" listener="#{gastoController.resetParents}"/>
+                    <p:ajax event="contextMenu" update=" :GastoListForm:createButton :GastoListForm:viewButton :GastoListForm:editButton :GastoListForm:deleteButton" listener="#{gastoController.resetParents}"/>
+                    <p:ajax event="rowDblselect" onsuccess="document.getElementById('GastoListForm:viewButton').click();"/>
+
+                    <p:column sortBy="#{item.name}" filterBy="#{item.name}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListGastoTitle_name}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.name}"/>
+                    </p:column>
+
+
+                </p:dataTable>
+
+                        <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{gastoController.prepareCreate}" update=":GastoCreateForm" oncomplete="PF('GastoCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":GastoViewForm" oncomplete="PF('GastoViewDialog').show()" disabled="#{empty gastoController.selected}"/>
+                        <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":GastoEditForm" oncomplete="PF('GastoEditDialog').show()" disabled="#{empty gastoController.selected}"/>
+                        <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{gastoController.delete}" update=":growl,datalist" disabled="#{empty gastoController.selected}">
+                            <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+                        </p:commandButton>
+
+            </p:panel>
+            <ui:include src="/confirmation.xhtml"/>
+        </h:form>
+
+</ui:composition>

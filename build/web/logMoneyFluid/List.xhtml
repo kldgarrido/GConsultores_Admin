@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="LogMoneyFluidListForm">
+
+        <p:panel header="#{myBundle.ListLogMoneyFluidTitle}">
+            <p:contextMenu id="LogMoneyFluidDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('LogMoneyFluidListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('LogMoneyFluidListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('LogMoneyFluidListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('LogMoneyFluidListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.LogMoneyFluidMenuItem_moneyBox}" icon="ui-icon-search"  actionListener="#{logMoneyFluidController.prepareMoneyBox}" update=":MoneyBoxViewForm" oncomplete="PF('MoneyBoxViewDialog').show()" disabled="#{empty logMoneyFluidController.selected.moneyBox}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{logMoneyFluidController.items}"
+                         var="item"
+                         rowKey="#{item.id}"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{logMoneyFluidController.selected}">
+
+                <p:ajax event="rowSelect"   update=":LogMoneyFluidListForm:createButton :LogMoneyFluidListForm:viewButton :LogMoneyFluidListForm:editButton :LogMoneyFluidListForm:deleteButton :LogMoneyFluidListForm:LogMoneyFluidDataTableContextMenu" listener="#{logMoneyFluidController.resetParents}"/>
+                <p:ajax event="rowUnselect" update=":LogMoneyFluidListForm:createButton :LogMoneyFluidListForm:viewButton :LogMoneyFluidListForm:editButton :LogMoneyFluidListForm:deleteButton :LogMoneyFluidListForm:LogMoneyFluidDataTableContextMenu" listener="#{logMoneyFluidController.resetParents}"/>
+                <p:ajax event="contextMenu" update=" :LogMoneyFluidListForm:createButton :LogMoneyFluidListForm:viewButton :LogMoneyFluidListForm:editButton :LogMoneyFluidListForm:deleteButton" listener="#{logMoneyFluidController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('LogMoneyFluidListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.operationDate}" filterBy="#{item.operationDate}" filterMatchMode="contains">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListLogMoneyFluidTitle_operationDate}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.operationDate}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.descripcion}" filterBy="#{item.descripcion}" filterMatchMode="contains">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListLogMoneyFluidTitle_descripcion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.descripcion}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.balance}" filterBy="#{item.balance}" filterMatchMode="contains">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListLogMoneyFluidTitle_balance}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.balance}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.moneyBox.name}" filterBy="#{item.moneyBox.name}" filterMatchMode="contains">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListLogMoneyFluidTitle_moneyBox}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.moneyBox.name}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{logMoneyFluidController.prepareCreate}" update=":LogMoneyFluidCreateForm" oncomplete="PF('LogMoneyFluidCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":LogMoneyFluidViewForm" oncomplete="PF('LogMoneyFluidViewDialog').show()" disabled="#{empty logMoneyFluidController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":LogMoneyFluidEditForm" oncomplete="PF('LogMoneyFluidEditDialog').show()" disabled="#{empty logMoneyFluidController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{logMoneyFluidController.delete}" update=":growl,datalist" disabled="#{empty logMoneyFluidController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

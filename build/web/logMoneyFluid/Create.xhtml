@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LogMoneyFluidCreateDlg" widgetVar="LogMoneyFluidCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateLogMoneyFluidTitle}" closeOnEscape="true">
+
+            <h:form id="LogMoneyFluidCreateForm">
+
+                <h:panelGroup id="display" rendered="#{logMoneyFluidController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateLogMoneyFluidLabel_operationDate}" for="operationDate" />
+                        <p:calendar id="operationDate" pattern="dd/MM/yyyy HH:mm:ss" value="#{logMoneyFluidController.selected.operationDate}" title="#{myBundle.CreateLogMoneyFluidTitle_operationDate}" required="true" requiredMessage="#{myBundle.CreateLogMoneyFluidRequiredMessage_operationDate}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateLogMoneyFluidLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{logMoneyFluidController.selected.descripcion}" title="#{myBundle.CreateLogMoneyFluidTitle_descripcion}" required="true" requiredMessage="#{myBundle.CreateLogMoneyFluidRequiredMessage_descripcion}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreateLogMoneyFluidLabel_balance}" for="balance" />
+                        <p:inputText id="balance" value="#{logMoneyFluidController.selected.balance}" title="#{myBundle.CreateLogMoneyFluidTitle_balance}" required="true" requiredMessage="#{myBundle.CreateLogMoneyFluidRequiredMessage_balance}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateLogMoneyFluidLabel_moneyBox}" for="moneyBox" />
+                        <p:selectOneMenu id="moneyBox" value="#{logMoneyFluidController.selected.moneyBox}" required="true" requiredMessage="#{myBundle.CreateLogMoneyFluidRequiredMessage_moneyBox}" converter="moneyBoxConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{moneyBoxController.items}"
+                                           var="moneyBoxItem"
+                                           itemValue="#{moneyBoxItem}"
+                                           itemLabel="#{moneyBoxItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{logMoneyFluidController.saveNew}" value="#{myBundle.Save}" update="display,:LogMoneyFluidListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('LogMoneyFluidCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('LogMoneyFluidCreateDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

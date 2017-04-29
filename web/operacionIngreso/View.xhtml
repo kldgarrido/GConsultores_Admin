@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OperacionIngresoViewDlg" widgetVar="OperacionIngresoViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewOperacionIngresoTitle}" closeOnEscape="true">
+
+            <h:form id="OperacionIngresoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{operacionIngresoController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewOperacionIngresoLabel_descripcion}"/>
+                        <h:outputText value="#{operacionIngresoController.selected.descripcion}" title="#{myBundle.ViewOperacionIngresoTitle_descripcion}"/>
+
+                        <h:outputText value="#{myBundle.ViewOperacionIngresoLabel_saldo}"/>
+                        <h:outputText value="#{operacionIngresoController.selected.saldo}" title="#{myBundle.ViewOperacionIngresoTitle_saldo}"/>
+
+                        <h:outputText value="#{myBundle.ViewOperacionIngresoLabel_fecha}"/>
+                        <h:outputText value="#{operacionIngresoController.selected.fecha}" title="#{myBundle.ViewOperacionIngresoTitle_fecha}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewOperacionIngresoLabel_ingreso}"/>
+                        <h:outputText value="#{operacionIngresoController.selected.ingreso.name}"/>
+                            
+                        <h:outputText value="#{myBundle.ViewOperacionIngresoLabel_account}"/>
+                        <h:outputText value="#{operacionIngresoController.selected.account.nameAccount}"/>
+
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('OperacionIngresoViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

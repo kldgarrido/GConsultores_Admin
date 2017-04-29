@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <ui:composition>
+        
+        <p:dialog id="OperacionIngresoCreateDlg" widgetVar="OperacionIngresoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateOperacionIngresoTitle}" closeOnEscape="true">
+            
+            <h:form id="OperacionIngresoCreateForm">
+                
+                <h:panelGroup id="display" rendered="#{operacionIngresoController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+                        
+                        <p:outputLabel value="#{myBundle.CreateOperacionIngresoLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{operacionIngresoController.selected.descripcion}" title="#{myBundle.CreateOperacionIngresoTitle_descripcion}" required="true" requiredMessage="#{myBundle.CreateOperacionIngresoRequiredMessage_descripcion}" size="100" maxlength="100"/>
+                        
+                        <p:outputLabel value="#{myBundle.CreateOperacionIngresoLabel_saldo}" for="saldo" />
+                        <p:inputText id="saldo" value="#{operacionIngresoController.selected.saldo}" title="#{myBundle.CreateOperacionIngresoTitle_saldo}"/>
+                        
+                        <p:outputLabel value="#{myBundle.CreateOperacionIngresoLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="dd/MM/yyyy" value="#{operacionIngresoController.selected.fecha}" title="#{myBundle.CreateOperacionIngresoTitle_fecha}"  showOn="button"/>
+                        
+                        <p:outputLabel value="#{myBundle.CreateOperacionIngresoLabel_ingreso}" for="ingreso" />
+                        <p:selectOneMenu id="ingreso" value="#{operacionIngresoController.selected.ingreso}" required="true" requiredMessage="#{myBundle.CreateOperacionIngresoRequiredMessage_ingreso}" converter="ingresoConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{ingresoController.items}"
+                                           var="ingresoItem"
+                                           itemValue="#{ingresoItem}"
+                                           itemLabel="#{ingresoItem.name.toString()}"
+                                           />
+                            
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel value="#{myBundle.CreateOperacionIngresoLabel_account}" for="account" />
+                        <p:selectOneMenu id="account" value="#{operacionIngresoController.selected.account}"  converter="accountFinancesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{accountFinancesController.items}"
+                                           var="accountItem"
+                                           itemValue="#{accountItem}"
+                                           itemLabel="#{accountItem.nameAccount.toString()}"
+                                           />
+                        </p:selectOneMenu>
+                        
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{operacionIngresoController.saveNew}" value="#{myBundle.Save}" update="display,:OperacionIngresoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('OperacionIngresoCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('OperacionIngresoCreateDialog').hide()"/>
+                </h:panelGroup>
+                
+            </h:form>
+            
+        </p:dialog>
+        
+    </ui:composition>
+    
+</html>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProspectFollowingViewDlg" widgetVar="ProspectFollowingViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewProspectFollowingTitle}" closeOnEscape="true">
+
+            <h:form id="ProspectFollowingViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{prospectFollowingController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewProspectFollowingLabel_fecha}"/>
+                        <h:outputText value="#{prospectFollowingController.selected.fecha}" title="#{myBundle.ViewProspectFollowingTitle_fecha}">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewProspectFollowingLabel_descripcion}"/>
+                        <h:outputText value="#{prospectFollowingController.selected.descripcion}" title="#{myBundle.ViewProspectFollowingTitle_descripcion}"/>
+
+                        <h:outputText value="#{myBundle.ViewProspectFollowingLabel_prospect}"/>
+                        <h:outputText value="#{prospectFollowingController.selected.prospect.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('ProspectFollowingViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>
